@@ -11,7 +11,7 @@
 
                     <head>
                         <title>Available Rooms - Ocean View</title>
-                        <link rel="stylesheet" href="css/light-theme.css">
+                        <link rel="stylesheet" href="css/dark-theme.css">
                     </head>
 
                     <body>
