@@ -46,7 +46,7 @@
                                 <div
                                     style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
                                     <div>
-                                        <h1>Operations Registry</h1>
+                                        <h1>All Reservations</h1>
                                         <p>Comprehensive overview of all guest reservations.</p>
                                     </div>
                                     <a href="walkinReservation.jsp" class="btn btn-primary">
