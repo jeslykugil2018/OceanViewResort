@@ -47,11 +47,11 @@ public class ReservationServlet extends HttpServlet {
                 String services = "";
                 if (request.getParameter("breakfast") != null) {
                     services += "Breakfast ";
-                    totalCost += 4500 * days;
+                    totalCost += 500 * days;
                 }
                 if (request.getParameter("spa") != null) {
                     services += "Spa ";
-                    totalCost += 15000;
+                    totalCost += 5000;
                 }
                 if (request.getParameter("pickup") != null) {
                     services += "Pickup ";
@@ -69,6 +69,7 @@ public class ReservationServlet extends HttpServlet {
                         .setCheckOut(checkOut)
                         .setServices(services)
                         .setTotalCost(totalCost)
+                        .setRoomRate(room.getPricePerNight())
                         .build();
 
                 if (resDAO.addReservation(res)) {
@@ -133,11 +134,11 @@ public class ReservationServlet extends HttpServlet {
                 String services = "";
                 if (request.getParameter("breakfast") != null) {
                     services += "Breakfast ";
-                    totalCost += 4500 * days;
+                    totalCost += 500 * days;
                 }
                 if (request.getParameter("spa") != null) {
                     services += "Spa ";
-                    totalCost += 15000;
+                    totalCost += 5000;
                 }
                 if (request.getParameter("pickup") != null) {
                     services += "Pickup ";
@@ -155,6 +156,7 @@ public class ReservationServlet extends HttpServlet {
                         .setCheckOut(checkOut)
                         .setServices(services)
                         .setTotalCost(totalCost)
+                        .setRoomRate(room.getPricePerNight())
                         .build();
 
                 if (resDAO.addReservation(res)) {
@@ -174,15 +176,20 @@ public class ReservationServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("reservationNumber"));
                 resDAO.updateStatus(id, "Cancelled");
 
-                String redirect = "guestDashboard.jsp";
-                User currentUser = (User) request.getSession().getAttribute("user");
-                if (currentUser != null) {
-                    if (currentUser.getRole().equals("Staff"))
-                        redirect = "staffDashboard.jsp";
-                    else if (currentUser.getRole().equals("Admin"))
-                        redirect = "adminDashboard.jsp";
+                String referer = request.getHeader("referer");
+                if (referer != null && !referer.isEmpty()) {
+                    response.sendRedirect(referer + (referer.contains("?") ? "&" : "?") + "msg=Cancelled");
+                } else {
+                    String redirect = "guestDashboard.jsp";
+                    User currentUser = (User) request.getSession().getAttribute("user");
+                    if (currentUser != null) {
+                        if (currentUser.getRole().equals("Staff"))
+                            redirect = "staffDashboard.jsp";
+                        else if (currentUser.getRole().equals("Admin"))
+                            redirect = "adminDashboard.jsp";
+                    }
+                    response.sendRedirect(redirect + "?msg=Cancelled");
                 }
-                response.sendRedirect(redirect + "?msg=Cancelled");
             }
         } catch (Exception e) {
             throw new ServletException(e);

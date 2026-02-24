@@ -62,6 +62,11 @@ public class ReservationBuilder {
         return this;
     }
 
+    public ReservationBuilder setRoomRate(double roomRate) {
+        reservation.setRoomRate(roomRate);
+        return this;
+    }
+
     public Reservation build() {
         reservation.setStatus("Confirmed");
         return reservation;
