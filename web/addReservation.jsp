@@ -66,7 +66,7 @@
                                     <input type="hidden" id="checkInDate" name="checkIn" value="<%= checkIn %>">
                                     <input type="hidden" id="checkOutDate" name="checkOut" value="<%= checkOut %>">
 
-                                    <h3 style="margin-top: 2rem; font-size: 1.1rem;">Bespoke Enhancements</h3>
+                                    <h3 style="margin-top: 2rem; font-size: 1.1rem;">Special Services</h3>
                                     <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 2rem;">
                                         <label
                                             style="display: flex; align-items: center; gap: 10px; font-weight: 400; cursor: pointer;">

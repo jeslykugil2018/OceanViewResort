@@ -115,7 +115,7 @@
 
                                                 <div
                                                     style="background: var(--secondary-bg); padding: 1.5rem; border-radius: var(--border-radius-sm);">
-                                                    <label style="margin-bottom: 1rem;">Bespoke Enhancements</label>
+                                                    <label style="margin-bottom: 1rem;">Special Services</label>
                                                     <div style="display: flex; flex-direction: column; gap: 12px;">
                                                         <label
                                                             style="display: flex; align-items: center; gap: 10px; font-weight: 400; cursor: pointer;">
