@@ -12,111 +12,119 @@
                         <html>
 
                         <head>
-                            <title>All Reservations - Ocean View</title>
-                            <link rel="stylesheet" href="css/dark-theme.css">
+                            <title>Global Reservations - Ocean View</title>
+                            <link rel="stylesheet" href="css/base.css">
+                            <link rel="stylesheet" href="css/light-theme.css" id="theme-link">
                             <link rel="stylesheet"
                                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                            <script>
+                                (function () {
+                                    const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+                                    document.getElementById('theme-link').setAttribute('href', `css/${savedTheme}-theme.css`);
+                                })();
+                            </script>
                         </head>
 
                         <body>
                             <div class="navbar">
-                                <div class="logo"><i class="fas fa-water"
-                                        style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort
-                                </div>
-                                <div class="nav-links">
-                                    <a href="staffDashboard.jsp">Back to Dashboard</a>
-                                    <a href="walkinReservation.jsp">Add Reservation</a>
-                                    <a href="staffHelp.jsp" style="color: var(--accent-light);"><i
-                                            class="fas fa-question-circle"></i> Help</a>
-                                    <a href="LogoutServlet" class="btn btn-secondary"><i
-                                            class="fas fa-sign-out-alt"></i> Logout</a>
+                                <div class="container">
+                                    <a href="index.jsp" class="logo">
+                                        <i class="fas fa-water"></i> Ocean View Resort
+                                    </a>
+                                    <div class="nav-links">
+                                        <a href="staffDashboard.jsp">Dashboard</a>
+                                        <button id="theme-toggle" class="btn btn-secondary"
+                                            style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                                            <i class="fas fa-moon"></i>
+                                        </button>
+                                        <a href="LogoutServlet" class="btn btn-secondary">Logout</a>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="container" style="max-width: 1200px;">
+                            <div class="container">
                                 <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                                    <h2><i class="fas fa-clipboard-list"
-                                            style="color: var(--accent-light); margin-right: 15px;"></i>Global
-                                        Reservation List</h2>
-                                    <a href="walkinReservation.jsp" class="btn btn-primary"><i class="fas fa-plus"></i>
-                                        New Walk-in</a>
-                                </div>
-
-                                <div class="card">
-                                    <h3>Current Reservations</h3>
-                                    <table>
-                                        <tr>
-                                            <th>Res #</th>
-                                            <th>Guest Name</th>
-                                            <th>Address</th>
-                                            <th>Contact</th>
-                                            <th>Room Type</th>
-                                            <th>Check In</th>
-                                            <th>Check Out</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <% for (Reservation r : allReservations) { %>
-                                            <tr>
-                                                <td>
-                                                    <%= r.getReservationNumber() %>
-                                                </td>
-                                                <td>
-                                                    <%= r.getGuestName() !=null ? r.getGuestName() : "Guest #" +
-                                                        r.getGuestId() %>
-                                                </td>
-                                                <td>
-                                                    <%= r.getGuestAddress() !=null ? r.getGuestAddress() : "N/A" %>
-                                                </td>
-                                                <td>
-                                                    <%= r.getGuestContact() !=null ? r.getGuestContact() : "N/A" %>
-                                                </td>
-                                                <td>
-                                                    <%= r.getRoomType() !=null ? r.getRoomType() : "Room #" +
-                                                        r.getRoomId() %>
-                                                </td>
-                                                <td>
-                                                    <%= r.getCheckIn() %>
-                                                </td>
-                                                <td>
-                                                    <%= r.getCheckOut() %>
-                                                </td>
-                                                <td>LKR <%= String.format("%.2f", r.getTotalCost()) %>
-                                                </td>
-                                                <td><span class="badge">
-                                                        <%= r.getStatus() %>
-                                                    </span></td>
-                                                <td>
-                                                    <form action="ReservationServlet" method="POST"
-                                                        style="display:inline;">
-                                                        <input type="hidden" name="action" value="cancel">
-                                                        <input type="hidden" name="reservationNumber"
-                                                            value="<%= r.getReservationNumber() %>">
-                                                        <button type="submit" class="btn btn-secondary"
-                                                            style="padding: 2px 6px; font-size: 0.75rem; line-height: 1.2; width: 90px; text-align: center; box-sizing: border-box; display: inline-block;">
-                                                            <i class="fas fa-times-circle"></i> Cancel
-                                                        </button>
-                                                    </form>
-                                                    <a href="BillingServlet?reservationNumber=<%= r.getReservationNumber() %>"
-                                                        class="btn btn-primary"
-                                                        style="padding: 2px 6px; font-size: 0.75rem; margin-left: 15px; display: inline-block; line-height: 1.2; width: 90px; text-align: center; box-sizing: border-box;"><i
-                                                            class="fas fa-file-pdf"></i> Bill PDF</a>
-                                                </td>
-                                            </tr>
-                                            <% } %>
-                                    </table>
-                                </div>
-
-                                <div style="margin-top: 30px; text-align: center;">
-                                    <a href="staffDashboard.jsp" class="btn btn-secondary">
-                                        <i class="fas fa-arrow-left"></i> Return to Staff Dashboard
+                                    style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
+                                    <div>
+                                        <h1>Operations Registry</h1>
+                                        <p>Comprehensive overview of all guest reservations.</p>
+                                    </div>
+                                    <a href="walkinReservation.jsp" class="btn btn-primary">
+                                        New Walk-in Booking
                                     </a>
                                 </div>
+
+                                <div class="card" style="padding: 1.5rem;">
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Guest</th>
+                                                    <th>Contact</th>
+                                                    <th>Room</th>
+                                                    <th>Stay</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
+                                                    <th style="text-align: right;">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for (Reservation r : allReservations) { %>
+                                                    <tr>
+                                                        <td>#<%= r.getReservationNumber() %>
+                                                        </td>
+                                                        <td><strong>
+                                                                <%= r.getGuestName() !=null ? r.getGuestName()
+                                                                    : "Guest #" + r.getGuestId() %>
+                                                            </strong></td>
+                                                        <td>
+                                                            <%= r.getGuestContact() !=null ? r.getGuestContact() : "N/A"
+                                                                %>
+                                                        </td>
+                                                        <td>
+                                                            <%= r.getRoomType() %>
+                                                        </td>
+                                                        <td style="font-size: 0.85rem;">
+                                                            <%= r.getCheckIn() %> - <%= r.getCheckOut() %>
+                                                        </td>
+                                                        <td style="font-weight: 600;">LKR <%= String.format("%,.0f",
+                                                                r.getTotalCost()) %>
+                                                        </td>
+                                                        <td><span class="badge">
+                                                                <%= r.getStatus() %>
+                                                            </span></td>
+                                                        <td style="text-align: right;">
+                                                            <div
+                                                                style="display: flex; gap: 8px; justify-content: flex-end;">
+                                                                <form action="ReservationServlet" method="POST"
+                                                                    style="margin: 0;">
+                                                                    <input type="hidden" name="action" value="cancel">
+                                                                    <input type="hidden" name="reservationNumber"
+                                                                        value="<%= r.getReservationNumber() %>">
+                                                                    <button type="submit" class="btn btn-secondary"
+                                                                        style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+                                                                        Cancel
+                                                                    </button>
+                                                                </form>
+                                                                <a href="BillingServlet?reservationNumber=<%= r.getReservationNumber() %>"
+                                                                    class="btn btn-primary"
+                                                                    style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">
+                                                                    Bill PDF
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                             </div>
 
                             <jsp:include page="footer.jsp" />
+                            <script src="js/themeSwitcher.js"></script>
                         </body>
 
                         </html>

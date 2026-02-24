@@ -136,18 +136,47 @@ public class PDFVisitor implements ReservationVisitor {
             }
 
             int nights = calculateNights(res.getCheckIn(), res.getCheckOut());
-            double baseTotal = res.getTotalCost();
-            double roomRate = baseTotal / nights;
+            double totalCost = res.getTotalCost();
+            double roomRate = res.getRoomRate();
 
-            // Row 1: Room Charge
+            // Pre-calculate known service costs based on the standardized rates
+            double knownServiceTotal = 0;
+            String servicesStr = res.getServices();
+            if (servicesStr != null && !servicesStr.trim().isEmpty() && !servicesStr.equals("None")) {
+                if (servicesStr.contains("Breakfast"))
+                    knownServiceTotal += 500.0 * nights;
+                if (servicesStr.contains("Spa"))
+                    knownServiceTotal += 5000.0;
+                if (servicesStr.contains("Pickup"))
+                    knownServiceTotal += 7500.0;
+            }
+
+            // Legacy data fallback: if roomRate is 0, derive it to ensure rows sum to
+            // totalCost
+            if (roomRate <= 0 && nights > 0) {
+                double derivedRoomTotal = totalCost - knownServiceTotal;
+                if (derivedRoomTotal < 0)
+                    derivedRoomTotal = 0;
+                roomRate = derivedRoomTotal / nights;
+            }
+
+            double roomTotal = roomRate * nights;
             addTableRow(table,
                     (res.getRoomType() != null ? res.getRoomType() : "Standard") + " Room (Room #" + res.getRoomId()
                             + ")",
-                    roomRate, nights, baseTotal, true);
+                    roomRate, nights, roomTotal, true);
 
-            // Row 2: Services
-            if (res.getServices() != null && !res.getServices().trim().isEmpty() && !res.getServices().equals("None")) {
-                addTableRow(table, "Extra Services: " + res.getServices(), 0, 1, 0, false);
+            // Itemized Services
+            if (servicesStr != null && !servicesStr.trim().isEmpty() && !servicesStr.equals("None")) {
+                if (servicesStr.contains("Breakfast")) {
+                    addTableRow(table, "Extra: Daily Breakfast", 500.0, nights, 500.0 * nights, false);
+                }
+                if (servicesStr.contains("Spa")) {
+                    addTableRow(table, "Extra: Spa treatment", 5000.0, 1, 5000.0, false);
+                }
+                if (servicesStr.contains("Pickup")) {
+                    addTableRow(table, "Extra: Airport Pickup", 7500.0, 1, 7500.0, false);
+                }
             }
 
             document.add(table);
@@ -158,13 +187,10 @@ public class PDFVisitor implements ReservationVisitor {
             totalsTable.setHorizontalAlignment(Element.ALIGN_RIGHT);
             totalsTable.setSpacingBefore(20f);
 
-            double subtotal = baseTotal;
-            double taxRate = 0.15;
-            double taxAmount = subtotal * taxRate;
-            double grandTotal = subtotal + taxAmount;
+            // The totalCost already includes all services based on our Servlet logic
+            double subtotal = totalCost;
 
-            addTotalRow(totalsTable, "Subtotal:", subtotal, NORMAL_FONT);
-            addTotalRow(totalsTable, "Taxes & Fees (15%):", taxAmount, NORMAL_FONT);
+            addTotalRow(totalsTable, "Total Amount:", subtotal, NORMAL_FONT);
 
             // Grand Total Row
             PdfPCell lblCell = new PdfPCell(new Phrase("GRAND TOTAL:", GRAND_TOTAL_FONT));
@@ -176,7 +202,7 @@ public class PDFVisitor implements ReservationVisitor {
             lblCell.setHorizontalAlignment(Element.ALIGN_LEFT);
             totalsTable.addCell(lblCell);
 
-            PdfPCell valCell = new PdfPCell(new Phrase(String.format("LKR %,.2f", grandTotal), GRAND_TOTAL_FONT));
+            PdfPCell valCell = new PdfPCell(new Phrase(String.format("LKR %,.0f", subtotal), GRAND_TOTAL_FONT));
             valCell.setBorder(Rectangle.TOP);
             valCell.setBorderWidthTop(2f);
             valCell.setBorderColorTop(PRIMARY_COLOR);

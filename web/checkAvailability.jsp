@@ -7,45 +7,61 @@
 
                 <head>
                     <title>Check Availability - Ocean View</title>
-                    <link rel="stylesheet" href="css/dark-theme.css">
+                    <link rel="stylesheet" href="css/base.css">
+                    <link rel="stylesheet" href="css/light-theme.css" id="theme-link">
                     <link rel="stylesheet"
                         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                    <script>
+                        (function () {
+                            const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+                            document.getElementById('theme-link').setAttribute('href', `css/${savedTheme}-theme.css`);
+                        })();
+                    </script>
                 </head>
 
                 <body>
                     <div class="navbar">
-                        <div class="logo"><i class="fas fa-water"
-                                style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
-                        <div class="nav-links">
-                            <a href="index.jsp">Home</a>
-                            <% com.oceanview.model.User user=(com.oceanview.model.User) session.getAttribute("user"); if
-                                (user !=null) { String dashboard="guestDashboard.jsp" ; if
-                                (user.getRole().equals("Admin")) dashboard="adminDashboard.jsp" ; else if
-                                (user.getRole().equals("Staff")) dashboard="staffDashboard.jsp" ; %>
-                                <a href="<%= dashboard %>">Back to Dashboard</a>
-                                <% } else { %>
-                                    <a href="login.jsp">Login</a>
-                                    <% } %>
+                        <div class="container">
+                            <a href="index.jsp" class="logo">
+                                <i class="fas fa-water"></i> Ocean View Resort
+                            </a>
+                            <div class="nav-links">
+                                <a href="index.jsp">Home</a>
+                                <button id="theme-toggle" class="btn btn-secondary"
+                                    style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                                    <i class="fas fa-moon"></i>
+                                </button>
+                                <% com.oceanview.model.User user=(com.oceanview.model.User)
+                                    session.getAttribute("user"); if (user !=null) { String
+                                    dashboard="guestDashboard.jsp" ; if (user.getRole().equals("Admin"))
+                                    dashboard="adminDashboard.jsp" ; else if (user.getRole().equals("Staff"))
+                                    dashboard="staffDashboard.jsp" ; %>
+                                    <a href="<%= dashboard %>">Dashboard</a>
+                                    <% } else { %>
+                                        <a href="login.jsp">Login</a>
+                                        <% } %>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="container" style="max-width: 800px;">
+                    <div class="container" style="max-width: 600px;">
                         <div class="card">
-                            <h2><i class="fas fa-search"
-                                    style="color: var(--accent-light); margin-right: 15px;"></i>Search Rooms</h2>
-                            <form action="availableRooms.jsp" method="GET">
-                                <div style="display: flex; gap: 20px;">
-                                    <div style="flex: 1;">
-                                        <label>Check-in Date</label>
+                            <h2>Find Your Room</h2>
+                            <p>Select your dates to explore our available luxury suites.</p>
+                            <form action="availableRooms.jsp" method="GET" style="margin-top: 2rem;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div class="form-group">
+                                        <label>Arrival Date</label>
                                         <input type="date" name="checkIn" id="checkInDate" required>
                                     </div>
-                                    <div style="flex: 1;">
-                                        <label>Check-out Date</label>
+                                    <div class="form-group">
+                                        <label>Departure Date</label>
                                         <input type="date" name="checkOut" id="checkOutDate" required>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary" style="margin-top: 20px;"><i
-                                        class="fas fa-calendar-check"></i> Find Rooms</button>
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                    Search Availability
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -83,6 +99,7 @@
 
 
                     <jsp:include page="footer.jsp" />
+                    <script src="js/themeSwitcher.js"></script>
                 </body>
 
                 </html>

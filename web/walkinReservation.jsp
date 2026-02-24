@@ -11,102 +11,127 @@
                         <html>
 
                         <head>
-                            <title>Walk-in Reservation - Ocean View</title>
-                            <link rel="stylesheet" href="css/dark-theme.css">
+                            <title>New Walk-in - Ocean View</title>
+                            <link rel="stylesheet" href="css/base.css">
+                            <link rel="stylesheet" href="css/light-theme.css" id="theme-link">
                             <link rel="stylesheet"
                                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                            <script>
+                                (function () {
+                                    const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+                                    document.getElementById('theme-link').setAttribute('href', `css/${savedTheme}-theme.css`);
+                                })();
+                            </script>
                         </head>
 
                         <body>
                             <div class="navbar">
-                                <div class="logo"><i class="fas fa-water"
-                                        style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort
-                                </div>
-                                <div class="nav-links">
-                                    <% if(user.getRole().equals("Admin")) { %>
-                                        <a href="adminDashboard.jsp">Back to Dashboard</a>
-                                        <% } else { %>
-                                            <a href="staffDashboard.jsp">Back to Dashboard</a>
-                                            <% } %>
-                                                <a href="LogoutServlet" class="btn btn-secondary"><i
-                                                        class="fas fa-sign-out-alt"></i> Logout</a>
+                                <div class="container">
+                                    <a href="index.jsp" class="logo">
+                                        <i class="fas fa-water"></i> Ocean View Resort
+                                    </a>
+                                    <div class="nav-links">
+                                        <button id="theme-toggle" class="btn btn-secondary"
+                                            style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                                            <i class="fas fa-moon"></i>
+                                        </button>
+                                        <% if(user.getRole().equals("Admin")) { %>
+                                            <a href="adminDashboard.jsp">Dashboard</a>
+                                            <% } else { %>
+                                                <a href="staffDashboard.jsp">Dashboard</a>
+                                                <% } %>
+                                                    <a href="LogoutServlet" class="btn btn-secondary">Logout</a>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="container" style="max-width: 900px;">
                                 <div class="card">
-                                    <h2><i class="fas fa-plus-circle"
-                                            style="color: var(--accent-light); margin-right: 15px;"></i>New Walk-in
-                                        Reservation</h2>
-                                    <form action="ReservationServlet" method="POST">
+                                    <h1>New Walk-in</h1>
+                                    <p>Register a guest directly into the system.</p>
+                                    <form action="ReservationServlet" method="POST" style="margin-top: 2rem;">
                                         <input type="hidden" name="action" value="walkin">
 
-                                        <div style="display: flex; gap: 30px; margin-top: 20px;">
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
                                             <!-- Guest Details -->
-                                            <div style="flex: 1;">
-                                                <h3>Guest Details</h3>
-                                                <label>Full Name</label>
-                                                <input type="text" name="guestName" required minlength="2"
-                                                    title="Please enter full name (minimum 2 characters).">
+                                            <div>
+                                                <h3 style="font-size: 1.1rem; margin-bottom: 1.5rem;">Guest Information
+                                                </h3>
+                                                <div class="form-group">
+                                                    <label>Full Name</label>
+                                                    <input type="text" name="guestName" required
+                                                        placeholder="Guest Name">
+                                                </div>
 
-                                                <label>Email (Username)</label>
-                                                <input type="email" name="guestEmail" required
-                                                    title="Please enter a valid email address.">
+                                                <div class="form-group">
+                                                    <label>Email Address</label>
+                                                    <input type="email" name="guestEmail" required
+                                                        placeholder="email@example.com">
+                                                </div>
 
-                                                <label>Contact Number</label>
-                                                <input type="tel" name="guestContact" required pattern="^[0-9]{10}$"
-                                                    title="Contact number must be exactly 10 digits.">
+                                                <div class="form-group">
+                                                    <label>Contact Number</label>
+                                                    <input type="tel" name="guestContact" required
+                                                        placeholder="07XXXXXXXX">
+                                                </div>
 
-                                                <label>Address</label>
-                                                <textarea name="guestAddress" required minlength="5"
-                                                    title="Please provide a valid address."
-                                                    style="width: 100%; height: 80px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: white; padding: 10px; margin-bottom: 15px;"></textarea>
+                                                <div class="form-group">
+                                                    <label>Resident Address</label>
+                                                    <textarea name="guestAddress" required
+                                                        style="height: 100px; resize: none;"
+                                                        placeholder="Full Address"></textarea>
+                                                </div>
                                             </div>
 
                                             <!-- Booking Details -->
-                                            <div style="flex: 1;">
-                                                <h3>Booking Details</h3>
-                                                <label>Select Room</label>
-                                                <select name="roomId" required
-                                                    style="width: 100%; padding: 10px; background: #2c3e50; color: white; border: 1px solid #34495e; border-radius: 8px; margin-bottom: 15px;">
-                                                    <% for (Room r : availableRooms) { %>
-                                                        <% if (r.getStatus().equals("Available")) { %>
-                                                            <option value="<%= r.getRoomId() %>">
-                                                                Room <%= r.getRoomNumber() %> (<%= r.getRoomType() %>) -
-                                                                        LKR <%= String.format("%,.0f",
-                                                                            r.getPricePerNight()) %>/night
-                                                            </option>
-                                                            <% } %>
+                                            <div>
+                                                <h3 style="font-size: 1.1rem; margin-bottom: 1.5rem;">Stay Details</h3>
+                                                <div class="form-group">
+                                                    <label>Room Assignment</label>
+                                                    <select name="roomId" required>
+                                                        <% for (Room r : availableRooms) { %>
+                                                            <% if (r.getStatus().equals("Available")) { %>
+                                                                <option value="<%= r.getRoomId() %>">
+                                                                    Room <%= r.getRoomNumber() %> - <%= r.getRoomType()
+                                                                            %> (LKR <%= String.format("%,.0f",
+                                                                                r.getPricePerNight()) %>)
+                                                                </option>
                                                                 <% } %>
-                                                </select>
-
-                                                <label>Check-in Date</label>
-                                                <input type="date" name="checkIn" id="checkInDate" required>
-
-                                                <label>Check-out Date</label>
-                                                <input type="date" name="checkOut" id="checkOutDate" required>
+                                                                    <% } %>
+                                                    </select>
+                                                </div>
 
                                                 <div
-                                                    style="background: rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 8px; margin-top: 20px;">
-                                                    <label
-                                                        style="margin-bottom: 15px; display: block; font-weight: bold;">Optional
-                                                        Services</label>
-                                                    <div
-                                                        style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 20px;">
+                                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1.5rem;">
+                                                    <div class="form-group">
+                                                        <label>Check-in</label>
+                                                        <input type="date" name="checkIn" id="checkInDate" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Check-out</label>
+                                                        <input type="date" name="checkOut" id="checkOutDate" required>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    style="background: var(--secondary-bg); padding: 1.5rem; border-radius: var(--border-radius-sm);">
+                                                    <label style="margin-bottom: 1rem;">Bespoke Enhancements</label>
+                                                    <div style="display: flex; flex-direction: column; gap: 12px;">
                                                         <label
-                                                            style="display: flex; align-items: center; font-weight: normal; margin: 0;">
-                                                            <input type="checkbox" name="breakfast">
-                                                            Breakfast (LKR 500/day)
+                                                            style="display: flex; align-items: center; gap: 10px; font-weight: 400; cursor: pointer;">
+                                                            <input type="checkbox" name="breakfast"
+                                                                style="width: auto;">
+                                                            <span>Breakfast (LKR 500/day)</span>
                                                         </label>
                                                         <label
-                                                            style="display: flex; align-items: center; font-weight: normal; margin: 0;">
-                                                            <input type="checkbox" name="spa">
-                                                            Spa Treatment (LKR 5,000)
+                                                            style="display: flex; align-items: center; gap: 10px; font-weight: 400; cursor: pointer;">
+                                                            <input type="checkbox" name="spa" style="width: auto;">
+                                                            <span>Spa Treatment (LKR 5,000)</span>
                                                         </label>
                                                         <label
-                                                            style="display: flex; align-items: center; font-weight: normal; margin: 0;">
-                                                            <input type="checkbox" name="pickup">
-                                                            Airport Pickup (LKR 7,500)
+                                                            style="display: flex; align-items: center; gap: 10px; font-weight: 400; cursor: pointer;">
+                                                            <input type="checkbox" name="pickup" style="width: auto;">
+                                                            <span>Airport Pickup (LKR 7,500)</span>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -114,8 +139,8 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-primary"
-                                            style="width: 100%; margin-top: 30px; padding: 15px; font-size: 1.1em;">
-                                            <i class="fas fa-check-double"></i> Confirm & Store Reservation
+                                            style="width: 100%; margin-top: 3rem;">
+                                            Confirm Guest Stay
                                         </button>
                                     </form>
                                 </div>
@@ -150,6 +175,7 @@
                             </script>
 
                             <jsp:include page="footer.jsp" />
+                            <script src="js/themeSwitcher.js"></script>
                         </body>
 
                         </html>

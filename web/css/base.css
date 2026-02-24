@@ -1,0 +1,364 @@
+/* 
+   Ocean View Minimalist Premium Design System
+   Principle: "Simplicty is the ultimate sophistication"
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;600;800&display=swap');
+
+:root {
+    /* Layout Constants */
+    --container-max: 1200px;
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --border-radius-sm: 12px;
+    /* UI Refactoring Tasks: */
+    /*
+    - [x] Rebuild CSS (Minimalist Premium UI/UX) <!-- id: 48 -->
+    - [x] Create implementation plan <!-- id: 49 -->
+    - [x] Create base.css with core system <!-- id: 50 -->
+    - [x] Refactor light-theme and dark-theme <!-- id: 51 -->
+    - [x] Update all JSP files <!-- id: 52 -->
+    */
+    --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Core Typography */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* 1. Global Reset & Foundation */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background-color: var(--bg-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 90%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* 2. Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+p {
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+}
+
+/* 3. Navigation (Minimalist Glass) */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1.5rem 0;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-color);
+    background: var(--nav-bg);
+}
+
+.navbar .container {
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition-smooth);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* 4. Layout Components */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-subtle);
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+/* Ensure images and other children respect the card's border radius even without overflow: hidden */
+.card>*:first-child {
+    border-top-left-radius: calc(var(--border-radius-lg) - 1px);
+    border-top-right-radius: calc(var(--border-radius-lg) - 1px);
+}
+
+.card>*:last-child {
+    border-bottom-left-radius: calc(var(--border-radius-lg) - 1px);
+    border-bottom-right-radius: calc(var(--border-radius-lg) - 1px);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Portal/Dashboard Specifics */
+.portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.portal-card {
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.portal-card h3 {
+    margin-top: 1.5rem;
+}
+
+.portal-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    transition: var(--transition-smooth);
+}
+
+.portal-card:hover .portal-icon {
+    transform: scale(1.1);
+}
+
+/* 5. Buttons (Clean & Bold) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.8rem;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    border: none;
+    font-size: 0.95rem;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+/* 6. Forms (Minimalist Focus) */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+input:not([type="checkbox"]),
+select,
+textarea {
+    width: 100%;
+    padding: 1rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--shadow-focus);
+}
+
+/* 7. Tables (Data Clarity) */
+.table-container {
+    overflow-x: auto;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--border-color);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background: var(--secondary-bg);
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+tr:hover td {
+    background: var(--row-hover);
+}
+
+/* 8. Alerts */
+.alert {
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.alert-success {
+    background: var(--success-bg);
+    color: var(--success-text);
+}
+
+.alert-error {
+    background: var(--error-bg);
+    color: var(--error-text);
+}
+
+/* 8. Footer (Ultra-Minimalist Single-Line) */
+.footer {
+    background: var(--nav-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 0.75rem 0;
+    margin-top: auto;
+    backdrop-filter: blur(20px);
+}
+
+.footer-minimal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-brand i {
+    color: var(--primary-color);
+}
+
+.footer p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.footer-social-simple {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.footer-social-simple a {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+}
+
+@media (max-width: 768px) {
+    .footer-minimal {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}
+
+.footer-social-simple a:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}

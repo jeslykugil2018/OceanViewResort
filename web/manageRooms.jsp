@@ -11,153 +11,161 @@
                         <html>
 
                         <head>
-                            <title>Manage Rooms - Ocean View</title>
-                            <link rel="stylesheet" href="css/dark-theme.css">
+                            <title>Manage Inventory - Ocean View</title>
+                            <link rel="stylesheet" href="css/base.css">
+                            <link rel="stylesheet" href="css/light-theme.css" id="theme-link">
                             <link rel="stylesheet"
                                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                            <script>
+                                (function () {
+                                    const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+                                    document.getElementById('theme-link').setAttribute('href', `css/${savedTheme}-theme.css`);
+                                })();
+                            </script>
                         </head>
 
                         <body>
                             <div class="navbar">
-                                <div class="logo"><i class="fas fa-water"
-                                        style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort
-                                </div>
-                                <div class="nav-links">
-                                    <a href="adminDashboard.jsp">Back to Dashboard</a>
-                                    <a href="signup.jsp">Create Staff</a>
-                                    <a href="LogoutServlet" class="btn btn-secondary"><i
-                                            class="fas fa-sign-out-alt"></i> Logout</a>
+                                <div class="container">
+                                    <a href="index.jsp" class="logo">
+                                        <i class="fas fa-water"></i> Ocean View Resort
+                                    </a>
+                                    <div class="nav-links">
+                                        <a href="adminDashboard.jsp">Dashboard</a>
+                                        <button id="theme-toggle" class="btn btn-secondary"
+                                            style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                                            <i class="fas fa-moon"></i>
+                                        </button>
+                                        <a href="LogoutServlet" class="btn btn-secondary">Logout</a>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="container">
-                                <% if (request.getParameter("msg") !=null) { %>
-                                    <div class="alert alert-success">
-                                        <%= request.getParameter("msg") %>
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem;">
+                                    <div>
+                                        <h1>Inventory Management</h1>
+                                        <p>Maintain your resort's room listings and pricing.</p>
                                     </div>
-                                    <% } %>
-                                        <% if (request.getParameter("error") !=null) { %>
-                                            <div class="alert alert-error">
-                                                <%= request.getParameter("error") %>
-                                            </div>
-                                            <% } %>
+                                    <button class="btn btn-primary" onclick="showAddModal()">
+                                        Add New Room
+                                    </button>
+                                </div>
 
-                                                <div
-                                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                                                    <h2><i class="fas fa-bed"
-                                                            style="color: var(--accent-light); margin-right: 15px;"></i>Room
-                                                        Management
-                                                        Inventory</h2>
-                                                    <button class="btn btn-primary" onclick="showAddModal()"><i
-                                                            class="fas fa-plus-circle"></i> Add New
-                                                        Room</button>
-                                                </div>
-
-                                                <div class="card">
-                                                    <h3>Resort Room Inventory</h3>
-                                                    <table>
-                                                        <tr>
-                                                            <th>Room #</th>
-                                                            <th>Type</th>
-                                                            <th>Status</th>
-                                                            <th>Price (LKR)</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                        <% for (Room r : allRooms) { %>
-                                                            <tr>
-                                                                <td>
-                                                                    <%= r.getRoomNumber() %>
-                                                                </td>
-                                                                <td>
-                                                                    <%= r.getRoomType() %>
-                                                                </td>
-                                                                <td>
-                                                                    <% String rStatus=r.getStatus(); String
-                                                                        rColor="#e74c3c" ; if
-                                                                        ("Available".equals(rStatus)) { rColor="#2ecc71"
-                                                                        ; } else if ("Occupied".equals(rStatus)) {
-                                                                        rColor="#e67e22" ; } %>
-                                                                        <span class="badge"
-                                                                            style="background: <%= rColor %>;">
-                                                                            <%= rStatus %>
-                                                                        </span>
-                                                                </td>
-                                                                <td>
-                                                                    <%= String.format("%.2f", r.getPricePerNight()) %>
-                                                                </td>
-                                                                <td>
-                                                                    <button class="btn btn-primary"
-                                                                        style="padding: 5px 10px;"
-                                                                        onclick="showEditModal(<%= r.getRoomId() %>, '<%= r.getRoomNumber() %>', '<%= r.getRoomType() %>', '<%= r.getStatus() %>', <%= r.getPricePerNight() %>)">
-                                                                        <i class="fas fa-edit"></i> Edit
+                                <div class="card" style="padding: 1.5rem;">
+                                    <div class="table-container">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Type</th>
+                                                    <th>Status</th>
+                                                    <th>Price (LKR)</th>
+                                                    <th style="text-align: right;">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% for (Room r : allRooms) { %>
+                                                    <tr>
+                                                        <td><strong>
+                                                                <%= r.getRoomNumber() %>
+                                                            </strong></td>
+                                                        <td>
+                                                            <%= r.getRoomType() %>
+                                                        </td>
+                                                        <td>
+                                                            <% String status=r.getStatus(); String
+                                                                badgeStyle="Available" .equals(status)
+                                                                ? "background: var(--success-bg); color: var(--success-text);"
+                                                                : "background: var(--error-bg); color: var(--error-text);"
+                                                                ; %>
+                                                                <span class="badge" style="<%= badgeStyle %>">
+                                                                    <%= status %>
+                                                                </span>
+                                                        </td>
+                                                        <td style="font-weight: 600;">
+                                                            <%= String.format("%,.0f", r.getPricePerNight()) %>
+                                                        </td>
+                                                        <td style="text-align: right;">
+                                                            <div
+                                                                style="display: flex; gap: 10px; justify-content: flex-end;">
+                                                                <button class="btn btn-secondary"
+                                                                    style="padding: 0.4rem 0.8rem; font-size: 0.8rem;"
+                                                                    onclick="showEditModal(<%= r.getRoomId() %>, '<%= r.getRoomNumber() %>', '<%= r.getRoomType() %>', '<%= r.getStatus() %>', <%= r.getPricePerNight() %>)">
+                                                                    Edit
+                                                                </button>
+                                                                <form action="RoomServlet" method="POST"
+                                                                    style="margin: 0;"
+                                                                    onsubmit="return confirm('Archive this room?')">
+                                                                    <input type="hidden" name="action" value="delete">
+                                                                    <input type="hidden" name="roomId"
+                                                                        value="<%= r.getRoomId() %>">
+                                                                    <button type="submit" class="btn btn-secondary"
+                                                                        style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border-color: var(--error-text); color: var(--error-text);">
+                                                                        Delete
                                                                     </button>
-                                                                    <form action="RoomServlet" method="POST"
-                                                                        style="display:inline;"
-                                                                        onsubmit="return confirm('Are you sure you want to delete this room?')">
-                                                                        <input type="hidden" name="action"
-                                                                            value="delete">
-                                                                        <input type="hidden" name="roomId"
-                                                                            value="<%= r.getRoomId() %>">
-                                                                        <button type="submit" class="btn btn-secondary"
-                                                                            style="padding: 5px 10px;">
-                                                                            <i class="fas fa-trash-alt"></i> Delete
-                                                                        </button>
-                                                                    </form>
-                                                                </td>
-                                                            </tr>
-                                                            <% } %>
-                                                    </table>
-                                                </div>
-
-                                                <div style="margin-top: 30px; text-align: center;">
-                                                    <a href="adminDashboard.jsp" class="btn btn-secondary">
-                                                        <i class="fas fa-arrow-left"></i> Return to Admin Dashboard
-                                                    </a>
-                                                </div>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Add/Edit Room Modal -->
                             <div id="roomModal" class="modal"
-                                style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.8);">
-                                <div class="card" style="width: 400px; margin: 100px auto;">
-                                    <h3 id="modalTitle">Add New Room</h3>
-                                    <form action="RoomServlet" method="POST">
-                                        <input type="hidden" name="action" id="formAction" value="add">
-                                        <input type="hidden" name="roomId" id="roomIdInput">
+                                style="display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background: var(--bg-color); padding: 2rem;">
+                                <div class="container" style="max-width: 500px;">
+                                    <div class="card">
+                                        <h2 id="modalTitle">Modify Room</h2>
+                                        <p>Update inventory details below.</p>
+                                        <form action="RoomServlet" method="POST" style="margin-top: 2rem;">
+                                            <input type="hidden" name="action" id="formAction" value="add">
+                                            <input type="hidden" name="roomId" id="roomIdInput">
 
-                                        <label>Room Number</label>
-                                        <input type="text" name="roomNumber" id="roomNumberInput" required
-                                            pattern="^[a-zA-Z0-9]+$"
-                                            title="Room Number can only contain letters and numbers (e.g., 101, A20).">
+                                            <div class="form-group">
+                                                <label>Room Number</label>
+                                                <input type="text" name="roomNumber" id="roomNumberInput" required
+                                                    placeholder="e.g. 101">
+                                            </div>
 
-                                        <label>Room Type</label>
-                                        <select name="roomType" id="roomTypeInput"
-                                            style="width:100%; padding:10px; background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); border-radius:8px; margin-bottom:15px;">
-                                            <option value="Single">Single</option>
-                                            <option value="Double">Double</option>
-                                            <option value="Deluxe">Deluxe</option>
-                                            <option value="Suite">Suite</option>
-                                        </select>
+                                            <div class="form-group">
+                                                <label>Room Category</label>
+                                                <select name="roomType" id="roomTypeInput">
+                                                    <option value="Single">Single</option>
+                                                    <option value="Double">Double</option>
+                                                    <option value="Deluxe">Deluxe</option>
+                                                    <option value="Suite">Suite</option>
+                                                </select>
+                                            </div>
 
-                                        <label>Status</label>
-                                        <select name="status" id="statusInput"
-                                            style="width:100%; padding:10px; background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); border-radius:8px; margin-bottom:15px;">
-                                            <option value="Available">Available</option>
-                                            <option value="Occupied">Occupied</option>
-                                            <option value="Maintenance">Maintenance</option>
-                                        </select>
+                                            <div class="form-group">
+                                                <label>Availability Status</label>
+                                                <select name="status" id="statusInput">
+                                                    <option value="Available">Available</option>
+                                                    <option value="Occupied">Occupied</option>
+                                                    <option value="Maintenance">Maintenance</option>
+                                                </select>
+                                            </div>
 
-                                        <label>Price per Night (LKR)</label>
-                                        <input type="number" step="0.01" name="pricePerNight" id="priceInput" required
-                                            min="1.0" title="Price must be a positive number.">
+                                            <div class="form-group">
+                                                <label>Nightly Rate (LKR)</label>
+                                                <input type="number" step="0.01" name="pricePerNight" id="priceInput"
+                                                    required placeholder="0.00">
+                                            </div>
 
-                                        <div style="display:flex; gap:10px; margin-top:20px;">
-                                            <button type="submit" class="btn btn-primary" style="flex:1;">Save
-                                                Room</button>
-                                            <button type="button" class="btn btn-secondary" style="flex:1;"
-                                                onclick="hideModal()">Cancel</button>
-                                        </div>
-                                    </form>
+                                            <div
+                                                style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:2rem;">
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    onclick="hideModal()">Discard</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
 
@@ -190,6 +198,7 @@
                             </script>
 
                             <jsp:include page="footer.jsp" />
+                            <script src="js/themeSwitcher.js"></script>
                         </body>
 
                         </html>

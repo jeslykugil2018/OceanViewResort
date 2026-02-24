@@ -6,84 +6,65 @@
             <html>
 
             <head>
-                <title>Staff Guidelines - Ocean View</title>
-                <link rel="stylesheet" href="css/dark-theme.css">
+                <title>Staff Protocols - Ocean View</title>
+                <link rel="stylesheet" href="css/base.css">
+                <link rel="stylesheet" href="css/light-theme.css" id="theme-link">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                <script>
+                    (function () {
+                        const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+                        document.getElementById('theme-link').setAttribute('href', `css/${savedTheme}-theme.css`);
+                    })();
+                </script>
             </head>
 
             <body>
                 <div class="navbar">
-                    <div class="logo"><i class="fas fa-water"
-                            style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
-                    <div class="nav-links">
-                        <a href="staffDashboard.jsp">Back to Dashboard</a>
-                        <a href="LogoutServlet" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <div class="container">
+                        <a href="index.jsp" class="logo">
+                            <i class="fas fa-water"></i> Ocean View Resort
+                        </a>
+                        <div class="nav-links">
+                            <a href="staffDashboard.jsp">Dashboard</a>
+                            <button id="theme-toggle" class="btn btn-secondary"
+                                style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                            <a href="LogoutServlet" class="btn btn-secondary">Logout</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="container">
-                    <div style="text-align: center; margin-bottom: 40px;">
-                        <h1 style="color: var(--accent-light); font-size: 2.5em;"><i class="fas fa-book-reader"></i>
-                            Staff Guidelines & Manual</h1>
-                        <p style="opacity: 0.7;">Comprehensive guide for managing the Ocean View Reservation System</p>
+                    <div style="margin-bottom: 4rem;">
+                        <h1>Operational Manual</h1>
+                        <p>Comprehensive procedures for the Ocean View Management System.</p>
                     </div>
 
-                    <div class="card" style="border-left: 5px solid var(--accent-light);">
-                        <h3><i class="fas fa-plus-circle"
-                                style="color: var(--accent-light); margin-right: 15px;"></i>Reservation Management</h3>
-                        <div
-                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
-                            <div>
-                                <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Walk-in Bookings</h4>
-                                <p style="line-height: 1.6; opacity: 0.9;">To create a walk-in reservation, navigate to
-                                    <strong>"Add Reservation"</strong>. Collect the guest's full details (Name, Email,
-                                    Contact, Address). The system will check for existing profiles using the email
-                                    provided.
-                                </p>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Cancellations</h4>
-                                <p style="line-height: 1.6; opacity: 0.9;">Reservations can be canceled directly from
-                                    the dashboard. Once canceled, the room status is automatically reverted to
-                                    <strong>'Available'</strong>.
-                                </p>
-                            </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <div class="card">
+                            <h3>Reservation Management</h3>
+                            <p>To create a walk-in booking, use <strong>"New Walk-in"</strong>. Ensure guest contact
+                                details are accurately captured for automated confirmations.</p>
+                            <p>Cancellations instantly update room inventory for immediate re-booking.</p>
                         </div>
-                    </div>
 
-                    <div class="card" style="margin-top: 30px; border-left: 5px solid var(--accent-secondary);">
-                        <h3><i class="fas fa-file-invoice-dollar"
-                                style="color: var(--accent-secondary); margin-right: 15px;"></i>Billing & Finance</h3>
-                        <div
-                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
-                            <div>
-                                <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Generating Invoices
-                                </h4>
-                                <p style="line-height: 1.6; opacity: 0.9;">Invoices are created as PDF documents. Go to
-                                    the Guest Dashboard view for a specific reservation and select <strong>"View
-                                        Bill"</strong> to download the PDF.</p>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Pricing Snapshots</h4>
-                                <p style="line-height: 1.6; opacity: 0.9;">The system takes a snapshot of room rates and
-                                    guest details at the time of booking. Changes to room prices later will not affect
-                                    existing confirmed reservations.</p>
-                            </div>
+                        <div class="card">
+                            <h3>Billing Protocols</h3>
+                            <p>Invoices are generated as high-fidelity PDFs. Always offer a digital copy to guests upon
+                                check-out or payment.</p>
+                            <p>System pricing snapshots ensure historical rate integrity for existing bookings.</p>
                         </div>
-                    </div>
 
-                    <div class="card" style="margin-top: 30px; border-left: 5px solid #2ecc71;">
-                        <h3><i class="fas fa-shield-alt" style="color: #2ecc71; margin-right: 15px;"></i>Best Practices
-                        </h3>
-                        <ul style="line-height: 2; opacity: 0.9; padding-left: 20px;">
-                            <li>Always verify the guest's email address to maintain accurate historical records.</li>
-                            <li>Ensure check-in and check-out dates are entered correctly to avoid pricing
-                                discrepancies.</li>
-                            <li>Promptly cancel reservations if a guest does not show up to keep room availability
-                                accurate.</li>
-                            <li>Use the dashboard search/sort features (where available) to quickly locate reservations.
-                            </li>
-                        </ul>
+                        <div class="card" style="grid-column: 1 / -1;">
+                            <h3>Operational Guidelines</h3>
+                            <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-left: 1rem;">
+                                <li>Verify guest identity and email during registration.</li>
+                                <li>Maintain real-time room status updates for housekeeping.</li>
+                                <li>Handle guest data with premium confidentiality.</li>
+                                <li>Escalate technical discrepancies to administration.</li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div style="margin-top: 40px; text-align: center;">
@@ -95,6 +76,7 @@
                 </div>
 
                 <jsp:include page="footer.jsp" />
+                <script src="js/themeSwitcher.js"></script>
             </body>
 
             </html>

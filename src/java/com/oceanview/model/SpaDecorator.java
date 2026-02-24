@@ -12,6 +12,6 @@ public class SpaDecorator extends ServiceDecorator {
 
     @Override
     public double getCost() {
-        return decoratedReservation.getCost() + 50.0;
+        return decoratedReservation.getCost() + 5000.0;
     }
 }
