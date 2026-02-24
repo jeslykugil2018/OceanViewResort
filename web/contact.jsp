@@ -38,7 +38,31 @@
                         Message</button>
                 </form>
             </div>
+
+            <div class="card" style="margin-top: 30px; text-align: center;">
+                <h3><i class="fas fa-qrcode" style="color: var(--accent-light); margin-right: 15px;"></i>Scan to Book
+                </h3>
+                <p style="margin-bottom: 20px; font-size: 0.9em; opacity: 0.8;">Scan this code to quickly access our
+                    room booking portal.</p>
+                <div id="qrcode"
+                    style="display: flex; justify-content: center; background: white; padding: 15px; border-radius: 10px; width: fit-content; margin: 0 auto;">
+                </div>
+                <p style="margin-top: 15px; font-size: 0.8em; color: var(--accent-light);">Ocean View Resort - Instant
+                    Booking</p>
+            </div>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+        <script>
+            new QRCode(document.getElementById("qrcode"), {
+                text: window.location.origin + "/OceanView/index.jsp",
+                width: 150,
+                height: 150,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        </script>
 
         <jsp:include page="footer.jsp" />
     </body>

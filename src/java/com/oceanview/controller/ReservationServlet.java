@@ -8,6 +8,7 @@ import com.oceanview.model.Reservation;
 import com.oceanview.model.ReservationBuilder;
 import com.oceanview.model.Room;
 import com.oceanview.model.User;
+import com.oceanview.service.EmailService;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -73,6 +74,8 @@ public class ReservationServlet extends HttpServlet {
                 if (resDAO.addReservation(res)) {
                     room.setStatus("Occupied");
                     roomDAO.updateRoom(room);
+                    // Send Email Confirmation
+                    EmailService.sendBookingConfirmation(res, guest.getEmail());
                     response.sendRedirect("guestDashboard.jsp?msg=Booking successful");
                 } else {
                     response.sendRedirect("addReservation.jsp?error=Booking failed");
@@ -157,6 +160,8 @@ public class ReservationServlet extends HttpServlet {
                 if (resDAO.addReservation(res)) {
                     room.setStatus("Occupied");
                     roomDAO.updateRoom(room);
+                    // Send Email Confirmation to walk-in guest
+                    EmailService.sendBookingConfirmation(res, email);
                     String redirect = "staffDashboard.jsp";
                     User currentUser = (User) request.getSession().getAttribute("user");
                     if (currentUser != null && currentUser.getRole().equals("Admin"))
