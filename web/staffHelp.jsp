@@ -13,7 +13,8 @@
 
             <body>
                 <div class="navbar">
-                    <div class="logo"><i class="fas fa-water" style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
+                    <div class="logo"><i class="fas fa-water"
+                            style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
                     <div class="nav-links">
                         <a href="staffDashboard.jsp">Back to Dashboard</a>
                         <a href="LogoutServlet" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -37,13 +38,15 @@
                                 <p style="line-height: 1.6; opacity: 0.9;">To create a walk-in reservation, navigate to
                                     <strong>"Add Reservation"</strong>. Collect the guest's full details (Name, Email,
                                     Contact, Address). The system will check for existing profiles using the email
-                                    provided.</p>
+                                    provided.
+                                </p>
                             </div>
                             <div>
                                 <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Cancellations</h4>
                                 <p style="line-height: 1.6; opacity: 0.9;">Reservations can be canceled directly from
                                     the dashboard. Once canceled, the room status is automatically reverted to
-                                    <strong>'Available'</strong>.</p>
+                                    <strong>'Available'</strong>.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -90,8 +93,8 @@
                         </a>
                     </div>
                 </div>
-            
-    <jsp:include page="footer.jsp" />
-</body>
+
+                <jsp:include page="footer.jsp" />
+            </body>
 
             </html>

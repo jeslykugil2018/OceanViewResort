@@ -12,7 +12,8 @@
 
             <body>
                 <div class="navbar">
-                    <div class="logo"><i class="fas fa-water" style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
+                    <div class="logo"><i class="fas fa-water"
+                            style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
                     <div class="nav-links">
                         <a href="index.jsp">Home</a>
                     </div>
@@ -46,8 +47,8 @@
                                 <% } %>
                     </div>
                 </div>
-            
-    <jsp:include page="footer.jsp" />
-</body>
+
+                <jsp:include page="footer.jsp" />
+            </body>
 
             </html>

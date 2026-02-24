@@ -56,7 +56,8 @@
                                                 <p style="margin: 0 0 10px 0; color: var(--text-secondary);">Room No:
                                                     <strong style="color: var(--text-primary);">
                                                         <%= r.getRoomNumber() %>
-                                                    </strong></p>
+                                                    </strong>
+                                                </p>
                                                 <div
                                                     style="margin-top: auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; text-align: center;">
                                                     <p
