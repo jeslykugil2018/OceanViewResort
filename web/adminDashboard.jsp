@@ -7,7 +7,7 @@
 
             <head>
                 <title>Admin Dashboard - Ocean View</title>
-                <link rel="stylesheet" href="css/dark-theme.css">
+                <link rel="stylesheet" href="css/light-theme.css">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
                 <style>
                     .portal-grid {
@@ -56,7 +56,8 @@
 
             <body>
                 <div class="navbar">
-                    <div class="logo"><i class="fas fa-water" style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
+                    <div class="logo"><i class="fas fa-water"
+                            style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
                     <div class="nav-links">
                         <a href="adminDashboard.jsp" class="active">Admin Dashboard</a>
                         <a href="LogoutServlet" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -104,8 +105,8 @@
                         </a>
                     </div>
                 </div>
-            
-    <jsp:include page="footer.jsp" />
-</body>
+
+                <jsp:include page="footer.jsp" />
+            </body>
 
             </html>

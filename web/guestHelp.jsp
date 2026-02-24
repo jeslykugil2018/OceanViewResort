@@ -7,13 +7,14 @@
 
             <head>
                 <title>Guest Guidelines - Ocean View</title>
-                <link rel="stylesheet" href="css/dark-theme.css">
+                <link rel="stylesheet" href="css/light-theme.css">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
             </head>
 
             <body>
                 <div class="navbar">
-                    <div class="logo"><i class="fas fa-water" style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
+                    <div class="logo"><i class="fas fa-water"
+                            style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
                     <div class="nav-links">
                         <a href="guestDashboard.jsp">Back to Dashboard</a>
                         <a href="LogoutServlet" class="btn btn-secondary"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -57,13 +58,15 @@
                                 <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Cancellations</h4>
                                 <p style="line-height: 1.6; opacity: 0.9;">Need to change your plans? You can cancel any
                                     <strong>Confirmed</strong> reservation directly from your dashboard up to 24 hours
-                                    before check-in.</p>
+                                    before check-in.
+                                </p>
                             </div>
                             <div>
                                 <h4 style="color: var(--accent-secondary); margin-bottom: 10px;">Status Updates</h4>
                                 <p style="line-height: 1.6; opacity: 0.9;">Your dashboard shows the current status of
                                     every booking: <strong>Confirmed</strong>, <strong>Checked In</strong>, or
-                                    <strong>Cancelled</strong>.</p>
+                                    <strong>Cancelled</strong>.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -94,8 +97,8 @@
                         </a>
                     </div>
                 </div>
-            
-    <jsp:include page="footer.jsp" />
-</body>
+
+                <jsp:include page="footer.jsp" />
+            </body>
 
             </html>

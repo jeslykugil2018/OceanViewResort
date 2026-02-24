@@ -6,13 +6,14 @@
 
             <head>
                 <title>Help & Support - Ocean View</title>
-                <link rel="stylesheet" href="css/dark-theme.css">
+                <link rel="stylesheet" href="css/light-theme.css">
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
             </head>
 
             <body>
                 <div class="navbar">
-                    <div class="logo"><i class="fas fa-water" style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
+                    <div class="logo"><i class="fas fa-water"
+                            style="color: var(--accent-light); margin-right: 8px;"></i> Ocean View Resort</div>
                     <div class="nav-links">
                         <a href="index.jsp">Home</a>
                     </div>
@@ -46,8 +47,8 @@
                                 <% } %>
                     </div>
                 </div>
-            
-    <jsp:include page="footer.jsp" />
-</body>
+
+                <jsp:include page="footer.jsp" />
+            </body>
 
             </html>
