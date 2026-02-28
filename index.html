@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean View Resort - Preview</title>
+    <!-- Linking to CSS in the web folder -->
+    <link rel="stylesheet" href="web/css/base.css">
+    <link rel="stylesheet" href="web/css/light-theme.css" id="theme-link">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .preview-banner {
+            background: #fffbeb;
+            color: #92400e;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #fde68a;
+            position: sticky;
+            top: 0;
+            z-index: 2000;
+            font-weight: 500;
+        }
+        .preview-banner i { margin-right: 8px; }
+    </style>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+            document.getElementById('theme-link').setAttribute('href', `web/css/${savedTheme}-theme.css`);
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="preview-banner">
+        <i class="fas fa-info-circle"></i> This is a <strong>UI Preview</strong>. Dynamic features (Login, Booking, DB) are disabled on GitHub Pages.
+    </div>
+
+    <div class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-water"></i> Ocean View Resort
+            </a>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <button id="theme-toggle" class="btn btn-secondary"
+                    style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="#" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" style="text-align: center; padding: 120px 0;">
+            <h1>Experience Luxury</h1>
+            <p>Simple. Clean. World-Class Hospitality.</p>
+            <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center;">
+                <a href="#" class="btn btn-secondary">Sign Up Now</a>
+                <a href="#" class="btn btn-primary">Book Your Stay</a>
+            </div>
+        </div>
+
+        <div class="portal-grid" style="margin-top: 60px; gap: 60px;">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-water fa-2x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                <h3>Vibrant Views</h3>
+                <p>Breathtaking ocean panoramas from every room.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-concierge-bell fa-2x"
+                    style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                <h3>Premium Service</h3>
+                <p>24/7 dedication to your absolute comfort.</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-star fa-2x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                <h3>Quiet Luxury</h3>
+                <p>Experience the finest amenities in a serene setting.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-minimal">
+            <div class="footer-brand">
+                <i class="fas fa-water"></i> Ocean View Resort
+            </div>
+            <p>&copy; 2026 Ocean View Resort. Crafted for absolute comfort.</p>
+            <div class="footer-social-simple">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Minimal theme switcher for preview
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeLink = document.getElementById('theme-link');
+        
+        themeToggle.addEventListener('click', () => {
+            let current = themeLink.getAttribute('href').includes('light') ? 'light' : 'dark';
+            let next = current === 'light' ? 'dark' : 'light';
+            themeLink.setAttribute('href', `web/css/${next}-theme.css`);
+            localStorage.setItem('ocean-view-theme', next);
+            
+            const icon = themeToggle.querySelector('i');
+            icon.className = next === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        });
+    </script>
+</body>
+
+</html>
