@@ -9,21 +9,7 @@
     <link rel="stylesheet" href="web/css/base.css">
     <link rel="stylesheet" href="web/css/light-theme.css" id="theme-link">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .preview-banner {
-            background: #fffbeb;
-            color: #92400e;
-            padding: 0.75rem 1rem;
-            text-align: center;
-            font-size: 0.85rem;
-            border-bottom: 1px solid #fde68a;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-            font-weight: 500;
-        }
-        .preview-banner i { margin-right: 8px; }
-    </style>
+
     <script>
         (function () {
             const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
@@ -33,9 +19,7 @@
 </head>
 
 <body>
-    <div class="preview-banner">
-        <i class="fas fa-info-circle"></i> This is a <strong>UI Preview</strong>. Dynamic features (Login, Booking, DB) are disabled on GitHub Pages.
-    </div>
+
 
     <div class="navbar">
         <div class="container">
@@ -72,8 +56,7 @@
                 <p>Breathtaking ocean panoramas from every room.</p>
             </div>
             <div class="card" style="text-align: center;">
-                <i class="fas fa-concierge-bell fa-2x"
-                    style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                <i class="fas fa-concierge-bell fa-2x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
                 <h3>Premium Service</h3>
                 <p>24/7 dedication to your absolute comfort.</p>
             </div>
@@ -98,18 +81,18 @@
             </div>
         </div>
     </footer>
-    
+
     <script>
         // Minimal theme switcher for preview
         const themeToggle = document.getElementById('theme-toggle');
         const themeLink = document.getElementById('theme-link');
-        
+
         themeToggle.addEventListener('click', () => {
             let current = themeLink.getAttribute('href').includes('light') ? 'light' : 'dark';
             let next = current === 'light' ? 'dark' : 'light';
             themeLink.setAttribute('href', `web/css/${next}-theme.css`);
             localStorage.setItem('ocean-view-theme', next);
-            
+
             const icon = themeToggle.querySelector('i');
             icon.className = next === 'light' ? 'fas fa-moon' : 'fas fa-sun';
         });
