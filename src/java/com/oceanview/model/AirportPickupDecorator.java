@@ -12,6 +12,6 @@ public class AirportPickupDecorator extends ServiceDecorator {
 
     @Override
     public double getCost() {
-        return decoratedReservation.getCost() + 25.0;
+        return decoratedReservation.getCost() + 7500.0;
     }
 }

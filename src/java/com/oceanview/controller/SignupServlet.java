@@ -24,6 +24,19 @@ public class SignupServlet extends HttpServlet {
 
         try {
             UserDAO userDAO = new UserDAO();
+
+            if (userDAO.isUsernameTaken(username)) {
+                request.setAttribute("error", "Username '" + username + "' is already taken.");
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
+                return;
+            }
+
+            if (userDAO.isEmailTaken(email)) {
+                request.setAttribute("error", "Email '" + email + "' is already registered.");
+                request.getRequestDispatcher("signup.jsp").forward(request, response);
+                return;
+            }
+
             User user = new User(0, name, username, email, contact, address, password, role);
 
             if (userDAO.registerUser(user)) {

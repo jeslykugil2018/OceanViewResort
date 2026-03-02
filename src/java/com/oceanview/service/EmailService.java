@@ -14,8 +14,8 @@ public class EmailService {
     // IMPORTANT: Replace these with your actual SMTP details
     private static final String SMTP_HOST = "smtp.gmail.com";
     private static final String SMTP_PORT = "587";
-    private static final String SENDER_EMAIL = "your-email@gmail.com";
-    private static final String SENDER_PASSWORD = "your-app-password"; // Use App Password for Gmail
+    private static final String SENDER_EMAIL = "jeslykugil2018@gmail.com";
+    private static final String SENDER_PASSWORD = "JKugil@2003";
 
     public static void sendBookingConfirmation(Reservation res, String recipientEmail) {
         Properties props = new Properties();
@@ -41,24 +41,28 @@ public class EmailService {
                     + "<p>Dear " + res.getGuestName() + ",</p>"
                     + "<p>Thank you for choosing Ocean View Resort. Here are your booking details:</p>"
                     + "<ul>"
-                    + "<li><b>Reservation No:</b> #" + res.getGuestId() + "-" + System.currentTimeMillis() % 10000
-                    + "</li>"
+                    + "<li><b>Reservation No:</b> #" + res.getReservationNumber() + "</li>"
                     + "<li><b>Room Type:</b> " + res.getRoomType() + "</li>"
                     + "<li><b>Check-in:</b> " + res.getCheckIn() + "</li>"
                     + "<li><b>Check-out:</b> " + res.getCheckOut() + "</li>"
-                    + "<li><b>Total Cost:</b> LKR " + res.getTotalCost() + "</li>"
+                    + "<li><b>Total Cost:</b> LKR " + String.format("%,.0f", res.getTotalCost()) + "</li>"
                     + "</ul>"
                     + "<p>We look forward to seeing you!</p>";
 
             message.setContent(content, "text/html");
 
-            // We simulate the send if credentials are not provided
-            if (SENDER_EMAIL.equals("your-email@gmail.com")) {
-                System.out.println("[EmailService Simulation] To: " + recipientEmail);
-                System.out.println("[EmailService Simulation] Content: \n" + content);
+            // --- LIVE EMAIL vs SIMULATION ---
+            // To enable live emails, update your-email@gmail.com and your-app-password
+            // above.
+            if (SENDER_EMAIL.equals("your-email@gmail.com") || SENDER_PASSWORD.equals("your-app-password")) {
+                System.out.println("---------- [EMAIL SIMULATION MODE] ----------");
+                System.out.println("To: " + recipientEmail);
+                System.out.println("Subject: Booking Confirmation #" + res.getReservationNumber());
+                System.out.println("Content: See HTML body above");
+                System.out.println("----------------------------------------------");
             } else {
                 Transport.send(message);
-                System.out.println("[EmailService] Email sent to: " + recipientEmail);
+                System.out.println("[EmailService] LIVE: Email sent to " + recipientEmail);
             }
 
         } catch (MessagingException e) {

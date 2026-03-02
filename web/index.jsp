@@ -4,53 +4,69 @@
 
     <head>
         <title>Ocean View Resort - Home</title>
-        <link rel="stylesheet" href="css/dark-theme.css">
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/light-theme.css" id="theme-link">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- Blocking Theme Script -->
+        <script>
+            (function () {
+                const savedTheme = localStorage.getItem('ocean-view-theme') || 'light';
+                document.getElementById('theme-link').setAttribute('href', `css/${savedTheme}-theme.css`);
+            })();
+        </script>
     </head>
 
     <body>
         <div class="navbar">
-            <div class="logo"><i class="fas fa-water" style="color: var(--accent-light); margin-right: 8px;"></i> Ocean
-                View Resort</div>
-            <div class="nav-links">
-                <a href="index.jsp">Home</a>
-                <a href="about.jsp">About</a>
-                <a href="contact.jsp">Contact</a>
-                <a href="login.jsp" class="btn btn-primary">Login</a>
+            <div class="container">
+                <a href="index.jsp" class="logo">
+                    <i class="fas fa-water"></i> Ocean View Resort
+                </a>
+                <div class="nav-links">
+                    <a href="index.jsp">Home</a>
+                    <a href="about.jsp">About</a>
+                    <a href="contact.jsp">Contact</a>
+                    <button id="theme-toggle" class="btn btn-secondary"
+                        style="padding: 0.5rem; width: 40px; height: 40px; border-radius: 50%;">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="login.jsp" class="btn btn-primary">Login</a>
+                </div>
             </div>
         </div>
 
         <div class="container">
-            <div class="card" style="text-align: center; padding: 100px 20px;">
-                <h1>Experience Luxury at Ocean View</h1>
-                <p style="font-size: 1.2rem; color: var(--text-secondary);">Your perfect getaway by the sea. Book your
-                    stay today.</p>
-                <div style="margin-top: 30px;">
+            <div class="card" style="text-align: center; padding: 120px 0;">
+                <h1>Experience Luxury</h1>
+                <p>Simple. Clean. World-Class Hospitality.</p>
+                <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center;">
                     <a href="signup.jsp" class="btn btn-secondary">Sign Up Now</a>
-                    <a href="checkAvailability.jsp" class="btn btn-primary">Check Availability</a>
+                    <a href="checkAvailability.jsp" class="btn btn-primary">Book Your Stay</a>
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="portal-grid" style="margin-top: 60px; gap: 60px;">
                 <div class="card" style="text-align: center;">
-                    <i class="fas fa-water fa-3x" style="color: var(--accent-light); margin-bottom: 15px;"></i>
+                    <i class="fas fa-water fa-2x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
                     <h3>Vibrant Views</h3>
-                    <p>Every room offers a breathtaking view of the ocean.</p>
+                    <p>Breathtaking ocean panoramas from every room.</p>
                 </div>
                 <div class="card" style="text-align: center;">
-                    <i class="fas fa-concierge-bell fa-3x" style="color: var(--accent-light); margin-bottom: 15px;"></i>
-                    <h3>Premium Amenities</h3>
-                    <p>Enjoy our spa, pool, and fine dining experiences.</p>
+                    <i class="fas fa-concierge-bell fa-2x"
+                        style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3>Premium Service</h3>
+                    <p>24/7 dedication to your absolute comfort.</p>
                 </div>
                 <div class="card" style="text-align: center;">
-                    <i class="fas fa-star fa-3x" style="color: var(--accent-light); margin-bottom: 15px;"></i>
-                    <h3>World Class Service</h3>
-                    <p>Our staff is dedicated to making your stay unforgettable.</p>
+                    <i class="fas fa-star fa-2x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                    <h3>Quiet Luxury</h3>
+                    <p>Experience the finest amenities in a serene setting.</p>
                 </div>
             </div>
         </div>
 
         <jsp:include page="footer.jsp" />
+        <script src="js/themeSwitcher.js"></script>
     </body>
 
     </html>

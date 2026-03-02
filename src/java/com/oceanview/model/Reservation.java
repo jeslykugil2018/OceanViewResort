@@ -17,12 +17,21 @@ public class Reservation {
     private Date checkOut;
     private String services;
     private double totalCost;
+    private double roomRate;
     private String status;
 
     public Reservation() {
     }
 
     // Getters and Setters
+    public double getRoomRate() {
+        return roomRate;
+    }
+
+    public void setRoomRate(double roomRate) {
+        this.roomRate = roomRate;
+    }
+
     public int getReservationNumber() {
         return reservationNumber;
     }

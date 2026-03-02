@@ -12,6 +12,6 @@ public class BreakfastDecorator extends ServiceDecorator {
 
     @Override
     public double getCost() {
-        return decoratedReservation.getCost() + 15.0;
+        return decoratedReservation.getCost() + 500.0;
     }
 }

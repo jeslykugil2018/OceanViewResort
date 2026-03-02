@@ -1,293 +1,45 @@
 :root {
-    /* Deeper, More Modern Dark Palette */
+    /* 1. Core Colors */
     --bg-color: #020617;
-    /* Deepest Indigo/Obsidian */
-    --card-bg: rgba(30, 41, 59, 0.7);
-    /* Translucent Slate */
+    /* Deepest Obsidian */
     --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
-    --accent-color: #a855f7;
-    /* Modern Violet */
-    --accent-glow: rgba(168, 85, 247, 0.4);
-    --accent-secondary: #2dd4bf;
-    /* Modern Emerald/Teal */
-    --error-color: #fb7185;
-    --border-color: rgba(255, 255, 255, 0.08);
+    --primary-color: #a855f7;
+    /* Soft Violet */
 
-    /* Effects */
-    --glass-bg: rgba(15, 23, 42, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.7);
-    --neon-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+    /* 2. Components */
+    --nav-bg: rgba(15, 23, 42, 0.8);
+    --card-bg: rgba(30, 41, 59, 0.5);
+    --secondary-bg: rgba(30, 41, 59, 0.3);
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --border-color: rgba(255, 255, 255, 0.06);
+    --row-hover: rgba(30, 41, 59, 0.4);
 
-    --border-radius: 20px;
-    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
+    /* 3. Status */
+    --success-bg: rgba(45, 212, 191, 0.1);
+    --success-text: #2dd4bf;
+    --error-bg: rgba(251, 113, 133, 0.1);
+    --error-text: #fb7185;
 
-@keyframes nebulaGlow {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    /* 4. Effects */
+    --shadow-subtle: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    --shadow-focus: rgba(168, 85, 247, 0.2);
 }
 
 body {
-    background-color: var(--bg-color);
     background-image:
-        radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(45, 212, 191, 0.08) 0px, transparent 50%),
-        url('../images/luxury_resort_bg.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: var(--text-primary);
-    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.7;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+        radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.05) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(45, 212, 191, 0.03) 0px, transparent 50%);
 }
 
-h1,
-h2,
-h3 {
-    color: var(--text-primary);
-    background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 100%);
+.logo {
+    background: linear-gradient(135deg, #a855f7 0%, #2dd4bf 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 800;
-    letter-spacing: -0.03em;
-}
-
-a {
-    color: var(--accent-secondary);
-    text-decoration: none;
-    transition: var(--transition);
-    position: relative;
-}
-
-a:hover {
-    color: #5eead4;
-    text-shadow: 0 0 8px rgba(45, 212, 191, 0.4);
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    padding: 1.5rem 4rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    border-bottom: 1px solid var(--glass-border);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar .logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-secondary) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.01em;
-}
-
-.nav-links a {
-    color: var(--text-secondary);
-    font-weight: 600;
-    margin-left: 2.5rem;
-    font-size: 1rem;
-}
-
-.nav-links a:hover {
-    color: var(--text-primary);
-}
-
-.container {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.card {
-    background: var(--card-bg);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border-radius: var(--border-radius);
-    padding: 3rem;
-    margin-bottom: 2.5rem;
-    box-shadow: var(--shadow-premium);
-    border: 1px solid var(--glass-border);
-    transition: var(--transition);
-}
-
-.card:hover {
-    transform: translateY(-8px) scale(1.01);
-    border-color: rgba(168, 85, 247, 0.3);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--neon-shadow);
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    transition: var(--transition);
-    font-size: 1rem;
-    gap: 12px;
-    letter-spacing: 0.02em;
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
-    color: white;
-    box-shadow: 0 8px 25px rgba(126, 34, 206, 0.4);
-}
-
-.btn-secondary {
-    background: rgba(45, 212, 191, 0.1);
-    color: var(--accent-secondary);
-    border: 2px solid rgba(45, 212, 191, 0.3);
-}
-
-.btn:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.2);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-}
-
-input:not([type="checkbox"]),
-select,
-textarea {
-    width: 100%;
-    padding: 1.25rem;
-    margin: 0.75rem 0 1.75rem 0;
-    background-color: rgba(15, 23, 42, 0.6);
-    border: 2px solid rgba(255, 255, 255, 0.06);
-    border-radius: 14px;
-    color: white;
-    box-sizing: border-box;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-input:not([type="checkbox"]):focus {
-    border-color: var(--accent-color);
-    background-color: rgba(15, 23, 42, 0.9);
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.2);
-}
-
-input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
-    background-color: rgba(15, 23, 42, 0.6);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    cursor: pointer;
-    vertical-align: middle;
-    position: relative;
-    margin-right: 12px;
-    transition: var(--transition);
-}
-
-input[type="checkbox"]:checked {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
-}
-
-input[type="checkbox"]:checked::after {
-    content: '\2714';
-    font-size: 16px;
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 900;
-}
-
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 14px;
-    margin: 2rem 0;
-}
-
-th {
-    padding: 1.5rem;
-    text-align: left;
-    color: var(--text-secondary);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
 }
 
 td {
-    padding: 1.5rem;
-    background-color: rgba(30, 41, 59, 0.4);
     backdrop-filter: blur(8px);
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
-}
-
-td:first-child {
-    border-left: 1px solid var(--border-color);
-    border-radius: 16px 0 0 16px;
-}
-
-td:last-child {
-    border-right: 1px solid var(--border-color);
-    border-radius: 0 16px 16px 0;
-}
-
-tr:hover td {
-    background-color: rgba(30, 41, 59, 0.7);
-    border-color: var(--accent-color);
-}
-
-.alert {
-    padding: 1.5rem;
-    border-radius: 16px;
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-weight: 600;
-    backdrop-filter: blur(10px);
-}
-
-.alert-error {
-    background-color: rgba(251, 113, 133, 0.1);
-    border: 1px solid var(--error-color);
-    color: var(--error-color);
-    box-shadow: 0 0 20px rgba(251, 113, 133, 0.1);
-}
-
-.alert-success {
-    background-color: rgba(45, 212, 191, 0.1);
-    border: 1px solid var(--accent-secondary);
-    color: var(--accent-secondary);
-    box-shadow: 0 0 20px rgba(45, 212, 191, 0.1);
 }

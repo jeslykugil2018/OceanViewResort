@@ -13,8 +13,8 @@ public class ReservationDAO {
     }
 
     public boolean addReservation(Reservation res) throws SQLException {
-        String query = "INSERT INTO Reservations (guestId, roomId, guestName, guestAddress, guestContact, roomType, checkIn, checkOut, services, totalCost, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
+        String query = "INSERT INTO Reservations (guestId, roomId, guestName, guestAddress, guestContact, roomType, checkIn, checkOut, services, totalCost, roomRate, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, res.getGuestId());
             ps.setInt(2, res.getRoomId());
             ps.setString(3, res.getGuestName());
@@ -25,8 +25,18 @@ public class ReservationDAO {
             ps.setDate(8, new java.sql.Date(res.getCheckOut().getTime()));
             ps.setString(9, res.getServices());
             ps.setDouble(10, res.getTotalCost());
-            ps.setString(11, res.getStatus());
-            return ps.executeUpdate() > 0;
+            ps.setDouble(11, res.getRoomRate());
+            ps.setString(12, res.getStatus());
+
+            boolean success = ps.executeUpdate() > 0;
+            if (success) {
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        res.setReservationNumber(generatedKeys.getInt(1));
+                    }
+                }
+            }
+            return success;
         }
     }
 
@@ -47,6 +57,7 @@ public class ReservationDAO {
                 res.setCheckOut(rs.getDate("checkOut"));
                 res.setServices(rs.getString("services"));
                 res.setTotalCost(rs.getDouble("totalCost"));
+                res.setRoomRate(rs.getDouble("roomRate"));
                 res.setStatus(rs.getString("status"));
                 list.add(res);
             }
@@ -73,6 +84,7 @@ public class ReservationDAO {
                     res.setCheckOut(rs.getDate("checkOut"));
                     res.setServices(rs.getString("services"));
                     res.setTotalCost(rs.getDouble("totalCost"));
+                    res.setRoomRate(rs.getDouble("roomRate"));
                     res.setStatus(rs.getString("status"));
                     list.add(res);
                 }
