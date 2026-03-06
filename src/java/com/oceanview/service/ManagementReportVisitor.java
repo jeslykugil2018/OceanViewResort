@@ -11,7 +11,7 @@ import java.util.Map;
 public class ManagementReportVisitor implements ReservationVisitor {
     private double totalRevenue = 0;
     private int totalReservations = 0;
-    private Map<String, Integer> roomTypeOccupancy = new HashMap<>();
+    private final Map<String, Integer> roomTypeOccupancy = new HashMap<>();
 
     @Override
     public void visit(Reservation reservation, String unused) {

@@ -6,7 +6,7 @@ import java.util.Date;
  * Builder Pattern for Reservation Objects
  */
 public class ReservationBuilder {
-    private Reservation reservation;
+    private final Reservation reservation;
 
     public ReservationBuilder() {
         this.reservation = new Reservation();

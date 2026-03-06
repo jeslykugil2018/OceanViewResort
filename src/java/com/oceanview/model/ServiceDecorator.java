@@ -7,10 +7,12 @@ public abstract class ServiceDecorator implements ReservationService {
         this.decoratedReservation = decoratedReservation;
     }
 
+    @Override
     public String getDescription() {
         return decoratedReservation.getDescription();
     }
 
+    @Override
     public double getCost() {
         return decoratedReservation.getCost();
     }

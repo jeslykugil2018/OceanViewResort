@@ -1,5 +1,6 @@
 package com.oceanview.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,6 +25,7 @@ public abstract class ValidationHandler {
 
     /**
      * Factory method to get a standard validation chain
+     * @return 
      */
     public static ValidationHandler getBasicChain() {
         ValidationHandler empty = new NotEmptyHandler();
@@ -34,6 +36,7 @@ public abstract class ValidationHandler {
 
     /**
      * Factory method for date validation
+     * @return 
      */
     public static ValidationHandler getDateChain() {
         ValidationHandler empty = new NotEmptyHandler();
@@ -44,6 +47,7 @@ public abstract class ValidationHandler {
 
     /**
      * Factory method for name validation
+     * @return 
      */
     public static ValidationHandler getNameChain() {
         return new NotEmptyHandler();
@@ -82,7 +86,7 @@ class DateHandler extends ValidationHandler {
                 return false;
             }
             return checkNext(value);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             return false;
         }
     }

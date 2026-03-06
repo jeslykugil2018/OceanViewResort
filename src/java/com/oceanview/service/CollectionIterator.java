@@ -5,9 +5,10 @@ import java.util.List;
 
 /**
  * Iterator Pattern implementation for Room/Reservation collections
+ * @param <T>
  */
 public class CollectionIterator<T> implements Iterator<T> {
-    private List<T> items;
+    private final List<T> items;
     private int position = 0;
 
     public CollectionIterator(List<T> items) {

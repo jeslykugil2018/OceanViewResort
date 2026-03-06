@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
  * Concrete Visitor for CSV Report Generation
  */
 public class CSVVisitor implements ReservationVisitor {
-    private StringBuilder csvContent;
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final StringBuilder csvContent;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public CSVVisitor() {
         csvContent = new StringBuilder();

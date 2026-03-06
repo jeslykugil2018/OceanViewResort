@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public UserDAO() throws SQLException {
         this.connection = DBConnection.getInstance().getConnection();

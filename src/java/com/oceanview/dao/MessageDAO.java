@@ -3,7 +3,7 @@ package com.oceanview.dao;
 import java.sql.*;
 
 public class MessageDAO {
-    private Connection connection;
+    private final Connection connection;
 
     public MessageDAO() throws SQLException {
         this.connection = DBConnection.getInstance().getConnection();
